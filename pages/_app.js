@@ -10,7 +10,7 @@ import {
 function MyApp({Component, pageProps}) {
   return (
     <>
-      <Navbar className="mt-6 mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4">
+      <Navbar className="border-b border-color-black mx-auto py-2 px-4 py-3" fullWidth={true} shadow={false}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
           <Typography
             as="a"
