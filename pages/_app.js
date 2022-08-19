@@ -21,7 +21,7 @@ function MyApp({Component, pageProps}) {
           <div className="flex items-center space-x-2">
             <a href="/create">
               <Button color="green" variant="gradient" size="sm" className="lg:inline-block">
-                Create
+                Claim
               </Button>
             </a>
             <a href="/auth">
