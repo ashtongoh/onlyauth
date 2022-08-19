@@ -1,10 +1,8 @@
 import '../styles/globals.css'
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
-  IconButton,
 } from "@material-tailwind/react";
 
 function MyApp({Component, pageProps}) {
@@ -21,16 +19,22 @@ function MyApp({Component, pageProps}) {
             <span>BlockChamp</span>
           </Typography>
           <div className="flex items-center space-x-2">
-            <Button color="green" variant="gradient" size="sm" className="lg:inline-block">
-              <span>Create</span>
-            </Button>
-            <Button variant="gradient" size="sm" className="lg:inline-block">
-              <span>Auth</span>
-            </Button>
+            <a href="/create">
+              <Button color="green" variant="gradient" size="sm" className="lg:inline-block">
+                Create
+              </Button>
+            </a>
+            <a href="/auth">
+              <Button variant="gradient" size="sm" className="lg:inline-block">
+                Auth
+              </Button>
+            </a>
           </div>
         </div>
       </Navbar>
-      <Component {...pageProps} />
+      <div className="container mx-auto flex flex-grow items-center justify-between ">
+        <Component {...pageProps} />
+      </div>
     </>
   )
 }
