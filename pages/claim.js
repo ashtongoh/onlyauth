@@ -6,7 +6,15 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 
-const Create = () => {
+import {usePrepareContractWrite, useContractWrite} from 'wagmi'
+
+import {
+  useAccount,
+} from 'wagmi'
+
+const Claim = () => {
+  const {address} = useAccount()
+
   const handleDrop = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -14,8 +22,15 @@ const Create = () => {
     var files = e.dataTransfer.files;
 
     console.log(files)
-
   };
+
+  const {config, error, isError} = usePrepareContractWrite({
+    addressOrName: address,
+    contractInterface: ['function mint()'],
+    functionName: 'mint',
+  });
+
+  const {data, write} = useContractWrite(config)
 
   return (
     <div className="flex flex-grow justify-center container pt-10 items-center full-height">
@@ -33,10 +48,11 @@ const Create = () => {
           Upload an NFT
         </CardBody>
         <CardFooter divider className="flex items-center justify-end py-3">
-          <Button color="green" variant="gradient" size="lg" > Upload </Button>
+          <Button onClick={() => write()} disabled={!write} color="green" variant="gradient" size="lg" > Mint </Button>
+          {isError && <div>Error: {error.message}</div>}
         </CardFooter>
       </Card>
     </div>
   )
 }
-export default Create;
+export default Claim;
