@@ -33,7 +33,7 @@ const Create = () => {
           Upload an NFT
         </CardBody>
         <CardFooter divider className="flex items-center justify-end py-3">
-          <Button color="green" variant="gradient" size="large" > Upload </Button>
+          <Button color="green" variant="gradient" size="lg" > Upload </Button>
         </CardFooter>
       </Card>
     </div>

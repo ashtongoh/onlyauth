@@ -41,7 +41,7 @@ const NavbarContainer = () => {
             <span>BlockChamp</span>
           </Typography>
           <div className="space-x-6">
-            <a href="/create">
+            <a href="/claim">
               Claim
             </a>
             <a href="/auth">
