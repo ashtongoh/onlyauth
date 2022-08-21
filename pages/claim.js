@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Button,
   Card,
@@ -14,14 +16,23 @@ import {
 
 const Claim = () => {
   const {address} = useAccount()
+  const [image, setImage] = React.useState(null)
 
   const handleDrop = (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    var files = e.dataTransfer.files;
+    const files = e.dataTransfer.files;
+    const file = files[0];
 
-    console.log(files)
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      console.log(e.target.result);
+      setImage(e.target.result)
+    };
+    reader.readAsDataURL(file);
+
+    fetch("/api/upload").then(res => res.json()).then(data => console.log(data))
   };
 
   const {config, error, isError} = usePrepareContractWrite({
@@ -42,7 +53,9 @@ const Claim = () => {
               return false
             }}
             onDrop={handleDrop} className="w-full h-full"
-          />
+          >
+            {image && (<img src={image} />)}
+          </div>
         </CardHeader>
         <CardBody className="text-center">
           Upload an NFT
