@@ -10,12 +10,14 @@
     "hardhat:compile": "hardhat compile"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@material-tailwind/react": "^1.2.3",
     "@openzeppelin/contracts": "^4.7.3",
     "@pinata/sdk": "^1.1.26",
     "autoprefixer": "^10.4.8",
     "ethers": "^5.7.0",
     "next": "12.2.5",
+    "next-themes": "^0.2.0",
     "postcss": "^8.4.16",
     "react": "18.2.0",
     "react-dom": "18.2.0",

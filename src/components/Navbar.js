@@ -1,3 +1,6 @@
+import { useTheme } from "next-themes";
+import {useState, useEffect} from 'react';
+import {MoonIcon, SunIcon} from '@heroicons/react/solid'
 import React from "react";
 import {
   Navbar,
@@ -16,6 +19,30 @@ const NavbarContainer = () => {
   const {address, isConnected} = useAccount()
   const {connect, connectors, error, isLoading, pendingConnector} = useConnect()
   const {disconnect} = useDisconnect()
+
+  const {systemTheme, theme, setTheme} = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+
+    if (currentTheme === 'dark') {
+      return(
+        <SunIcon className="w-7 h-7" role="button" onClick={() => setTheme('light')}/>
+      )
+    }
+    else {
+      return(
+        <MoonIcon className="w-7 h-7" role="button" onClick={() => setTheme('dark')}/>
+      )
+    }
+  }
 
   React.useEffect(() => {
     if (isConnected && address) {
@@ -47,6 +74,7 @@ const NavbarContainer = () => {
             <a href="/auth">
               Auth
             </a>
+            {renderThemeChanger()}
           </div>
           <div className="flex items-center space-x-2 ml-auto">
             {connectors.map((connector) => (

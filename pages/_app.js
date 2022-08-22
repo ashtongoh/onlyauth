@@ -1,4 +1,6 @@
 import '../styles/globals.css'
+import { ThemeProvider } from 'next-themes'
+
 import {
   WagmiConfig,
   createClient,
@@ -29,12 +31,14 @@ const client = createClient({
 
 function MyApp({Component, pageProps}) {
   return (
-    <WagmiConfig client={client}>
-      <NavbarContainer />
-      <div className="container mx-auto flex flex-grow items-center justify-between ">
-        <Component {...pageProps} />
-      </div>
-    </WagmiConfig>
+    <ThemeProvider enableSystem = {true} attribute ="class">
+      <WagmiConfig client={client}>
+        <NavbarContainer />
+        <div className="container mx-auto flex flex-grow items-center justify-between ">
+          <Component {...pageProps} />
+        </div>
+      </WagmiConfig>
+    </ThemeProvider>
   )
 }
 
