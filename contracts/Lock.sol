@@ -1,34 +1,71 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-// Import this file to use console.log
-import "hardhat/console.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+/* 
+    A library that provides a function for encoding some bytes in base64
+    Source: https://github.com/zlayine/epic-game-buildspace/blob/master/contracts/libraries/Base64.sol
+*/
+import {Base64} from "./Base64.sol";
 
-    event Withdrawal(uint amount, uint when);
+contract OnChainNFT is ERC721URIStorage, Ownable {
+    event Minted(uint256 tokenId);
 
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
 
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+    constructor() ERC721("Blockchamp", "BLC") {}
+
+    /* Converts an SVG to Base64 string */
+    function svgToImageURI(string memory svg)
+        public
+        pure
+        returns (string memory)
+    {
+        string memory baseURL = "data:image/svg+xml;base64,";
+        string memory svgBase64Encoded = Base64.encode(bytes(svg));
+        return string(abi.encodePacked(baseURL, svgBase64Encoded));
     }
 
-    function withdraw() public {
-        // Uncomment this line to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+    /* Generates a tokenURI using Base64 string as the image */
+    function formatTokenURI(string memory imageURI)
+        public
+        pure
+        returns (string memory)
+    {
+        return
+            string(
+                abi.encodePacked(
+                    "data:application/json;base64,",
+                    Base64.encode(
+                        bytes(
+                            abi.encodePacked(
+                                '{"name": "BLC ON-CHAINED", "description": "A simple SVG based on-chain NFT", "image":"',
+                                imageURI,
+                                '"}'
+                            )
+                        )
+                    )
+                )
+            );
+    }
 
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
+    /* Mints the token */
+    function mint(string memory svg) public onlyOwner {
+        string memory imageURI = svgToImageURI(svg);
+        string memory tokenURI = formatTokenURI(imageURI);
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+        _tokenIds.increment();
+        uint256 newItemId = _tokenIds.current();
 
-        owner.transfer(address(this).balance);
+        _safeMint(msg.sender, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+
+        emit Minted(newItemId);
     }
 }
+
