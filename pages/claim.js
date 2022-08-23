@@ -38,9 +38,9 @@ const Claim = () => {
   // };
 
   const {config, error, isError} = usePrepareContractWrite({
-    addressOrName: mainAddress,
-    contractInterface: [mainABI],
-    functionName: 'mint',
+    addressOrName: address,
+    contractInterface: mainABI,
+    functionName: 'mint'
   });
 
   const {data, write} = useContractWrite(config)
