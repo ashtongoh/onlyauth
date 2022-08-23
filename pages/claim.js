@@ -14,30 +14,32 @@ import {
   useAccount,
 } from 'wagmi'
 
+import {mainABI, mainAddress} from "../contracts/contract"
+
 const Claim = () => {
   const {address} = useAccount()
-  const [image, setImage] = React.useState(null)
+  // const [image, setImage] = React.useState(null)
 
-  const handleDrop = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
+  // const handleDrop = (e) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
 
-    const files = e.dataTransfer.files;
-    const file = files[0];
+  //   const files = e.dataTransfer.files;
+  //   const file = files[0];
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      console.log(e.target.result);
-      setImage(e.target.result)
-    };
-    reader.readAsDataURL(file);
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     console.log(e.target.result);
+  //     setImage(e.target.result)
+  //   };
+  //   reader.readAsDataURL(file);
 
-    fetch("/api/upload").then(res => res.json()).then(data => console.log(data))
-  };
+  //   fetch("/api/upload").then(res => res.json()).then(data => console.log(data))
+  // };
 
   const {config, error, isError} = usePrepareContractWrite({
-    addressOrName: address,
-    contractInterface: ['function mint()'],
+    addressOrName: mainAddress,
+    contractInterface: [mainABI],
     functionName: 'mint',
   });
 
@@ -48,13 +50,13 @@ const Claim = () => {
       <Card className="w-96">
         <CardHeader color="blue" className="relative h-56">
           <div
-            onDragOver={e => {
-              e.preventDefault();
-              return false
-            }}
-            onDrop={handleDrop} className="w-full h-full"
+          // onDragOver={e => {
+          //   e.preventDefault();
+          //   return false
+          // }}
+          // onDrop={handleDrop} className="w-full h-full"
           >
-            {image && (<img src={image} />)}
+            <img src="https://gateway.pinata.cloud/ipfs/QmTfLNkin1r6sM8RHrqFZLpDU2gd9qBpZDZHfHWWYytkrj" />
           </div>
         </CardHeader>
         <CardBody className="text-center">
