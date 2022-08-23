@@ -1,7 +1,7 @@
 const { ethers } = require("hardhat");
 const keccak256 = require("keccak256");
 
-async function main () {
+async function main() {
 
     // Owner of contract
     const [deployer, tester1, tester2] = await ethers.getSigners();
@@ -21,69 +21,93 @@ async function main () {
 
     // Get tester to mint an nft
     await mainContract.connect(tester1).mint();
+    await mainContract.connect(tester1).mint();
+    await mainContract.connect(tester1).mint();
+    await mainContract.connect(tester1).mint();
 
     // Get tester to mint an nft
     // await mainContract.connect(tester2).mint();
     // await mainContract.connect(tester2).mint();
 
     //Check if tester accounts own a token
-    let result = await mainContract.connect(tester1).checkOwn(tester1.address);
-    console.log("What tester 1 owns: ", result); 
+    const balArr = await mainContract.checkOwn(tester1.address);
+    //console.log("What tester 1 owns: ", result); 
+
+    // const balanceOfOwner = await mainContract.balanceOf(tester1.address);
+    // console.log("Balance of owner: ", balanceOfOwner.toNumber());
+    // const totalSupply = await mainContract.totalSupply();
+    // console.log("Total supply: ", totalSupply.toNumber());
+
+    // const counter = 0;
+    // const balArr = [];
+
+    // for (let i = 1; i <= totalSupply; i++) {
+
+    //     const ownerOf = await mainContract.ownerOf(i);
+    //     console.log(ownerOf);    
+
+    //     if(ownerOf == tester1.address) {
+    //         console.log(true);
+    //         //balArr.append(i);
+    //     }
+    // }
+
+    //console.log(balArr);
+
+    //console.log("Look at this:", balanceOfOwner);
 
     // if array is not empty
-    // result.forEach(item => console.log(item.toNumber()));
-
-    // result = await mainContract.connect(tester2).checkOwn(tester2.address);
-    // console.log("What tester 2 owns: ", result);
-
-    const balance = await mainContract.connect(tester1).checkOwn(tester1.address);
-
-    if (balance.length !== 0) {
+    if (balArr.length !== 0) {
 
         console.log("Array is not empty");
 
-        //function verifyAccess(string memory _path, uint256 _tokenId) external view returns (bool){
-        // Testing access with hardcode value for tokenId
-        const verificationResult = await mainContract.connect(tester1).verifyAccess("auth", 1);
-        console.log("Verification Result: ", verificationResult);
+        for (let i = 0; i < balArr.length; i++) {
+            // If any one of the token exists, grant access
 
-        // After this is done... do signature verification
+            const verificationResult = await mainContract.verifyAccess("auth", balArr[i].toNumber());
+            console.log("Verification Result: ", verificationResult);
 
-        // Message (private key) lol
-        const message = "Hello";
+            if (verificationResult == true) {
 
-        // Message Hash
-        const messageHash = ethers.utils.solidityKeccak256(['string'], [message]);
+                // Get user to prove his identity through signature verification
 
-        // Wallet owner signs message
-        const signature = await tester1.signMessage(ethers.utils.arrayify(messageHash));
+                // Message (private key) lol
+                const message = "Hello";
 
-        // split signature
-        const r = signature.slice(0, 66);
-        const s = "0x" + signature.slice(66, 130);
-        const v = parseInt(signature.slice(130, 132), 16);
-        console.log(r, s, v);
+                // Message Hash
+                const messageHash = ethers.utils.solidityKeccak256(['string'], [message]);
 
-        const sigResult = await mainContract.connect(tester1).verifySignature(messageHash, v, r, s);
-   
-        //console.log("Signature Verfication Result: ", sigResult);
+                // Wallet owner signs message
+                const signature = await tester1.signMessage(ethers.utils.arrayify(messageHash));
 
-        if (sigResult) {
-            // Allow access to page
-        }
+                // split signature
+                const r = signature.slice(0, 66);
+                const s = "0x" + signature.slice(66, 130);
+                const v = parseInt(signature.slice(130, 132), 16);
+                console.log(r, s, v);
 
-        else {
-            // Deny access to page
+                const sigResult = await mainContract.connect(tester1).verifySignature(messageHash, v, r, s);
+
+                //console.log("Signature Verfication Result: ", sigResult);
+
+                if (sigResult) {
+                    // Allow access to page
+                    console.log("Signature Verification Successful!");
+                }
+
+                else {
+                    // Deny access to page
+                }
+            }
         }
     }
-
 }
 
 
 
 main()
-  .then(() => process.exit(0))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+    .then(() => process.exit(0))
+    .catch(error => {
+        console.error(error);
+        process.exit(1);
+    });

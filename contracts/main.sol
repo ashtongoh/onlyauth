@@ -66,7 +66,7 @@ contract Main is ERC721Enumerable, Ownable {
         tokens = new uint256[](balanceOf(_acc));
         uint256 counter = 0;
 
-        for (uint256 i = 1; i < totalSupply(); i++) {
+        for (uint256 i = 1; i <= totalSupply(); i++) {
             if (ownerOf(i) == _acc) tokens[counter++] = i;
         }
     }
