@@ -12,12 +12,6 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@material-tailwind/react": "^1.2.3",
-<<<<<<< Updated upstream
-    "@openzeppelin/contracts": "^4.7.3",
-    "@pinata/sdk": "^1.1.26",
-    "autoprefixer": "^10.4.8",
-    "ethers": "^5.7.0",
-=======
     "@nomicfoundation/hardhat-toolbox": "^1.0.2",
     "@nomiclabs/hardhat-ethers": "^2.1.1",
     "@openzeppelin/contracts": "^4.7.3",
@@ -26,7 +20,6 @@
     "dotenv": "^16.0.1",
     "ethers": "^5.6.9",
     "keccak256": "^1.0.6",
->>>>>>> Stashed changes
     "next": "12.2.5",
     "next-themes": "^0.2.0",
     "postcss": "^8.4.16",
@@ -36,7 +29,6 @@
     "wagmi": "^0.6.4"
   },
   "devDependencies": {
-<<<<<<< Updated upstream
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.0",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.3",
@@ -47,9 +39,7 @@
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.2",
     "chai": "^4.3.6",
-=======
     "@nomiclabs/hardhat-etherscan": "^3.1.0",
->>>>>>> Stashed changes
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
     "hardhat": "^2.10.2",
