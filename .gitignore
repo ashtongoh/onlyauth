@@ -2,6 +2,7 @@
 
 /artifacts
 /.env
+/cache
 
 # dependencies
 /node_modules
