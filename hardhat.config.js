@@ -25,7 +25,7 @@ module.exports = {
   mumbai: {
     url: "https://rpc-mumbai.maticvigil.com",
     chainId: 80001,
-    accounts: process.env.PRIVATE_KEY,
+    accounts: [process.env.PRIVATE_KEY],
     saveDeployments: true,
   },
   },etherscan: {
