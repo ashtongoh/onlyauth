@@ -35,12 +35,6 @@ const NavbarContainer = () => {
   const {connect, connectors, error, isLoading, pendingConnector} = useConnect()
   const {disconnect} = useDisconnect()
 
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
-
   React.useEffect(() => {
     if (isConnected && address) {
       setConnectedAddress(address)
