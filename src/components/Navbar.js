@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import {MoonIcon, SunIcon} from '@heroicons/react/solid'
 import {
   Navbar,
@@ -59,12 +60,12 @@ const NavbarContainer = () => {
             <span>onlyAuth</span>
           </Typography>
           <div className="flex space-x-6 text-[#1E0536]">
-            <a href="/claim">
+            <Link href="/claim">
               Claim
-            </a>
-            <a href="/auth">
+            </Link>
+            <Link href="/auth">
               Auth
-            </a>
+            </Link>
             <ThemeSwitcher />
           </div>
           <div className="flex items-center space-x-2 ml-auto text-[#1E0536]">

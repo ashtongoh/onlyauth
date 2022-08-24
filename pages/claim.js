@@ -14,7 +14,7 @@ import {
   useAccount,
 } from 'wagmi'
 
-import {mainABI, mainAddress} from "../contracts/contract"
+import {mainABI, mainAddress} from "../contract"
 
 const Claim = () => {
   const {address} = useAccount()
