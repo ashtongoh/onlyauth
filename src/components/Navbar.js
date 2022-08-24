@@ -56,7 +56,7 @@ const NavbarContainer = () => {
             variant="small"
             className="mr-4 cursor-pointer py-1.5 font-bold mr-10"
           >
-            <span>BlockChamp</span>
+            <span>onlyAuth</span>
           </Typography>
           <div className="flex space-x-6 text-[#1E0536]">
             <a href="/claim">

@@ -1,8 +1,11 @@
 import React from 'react';
-import { useContractWrite } from 'wagmi';
+import { ethers } from "ethers";
+import { useContractWrite, useAccount, useContractRead } from 'wagmi';
 import { mainABI, mainAddress } from "../contract"
 
 const Card = (props) => {
+
+    const { address, isConnected } = useAccount();
 
     const mint = useContractWrite({
         addressOrName: mainAddress,
@@ -12,6 +15,41 @@ const Card = (props) => {
             console.log("Success", data);
         }
     })
+
+    const checkOwn = useContractRead({
+        addressOrName: mainAddress,
+        contractInterface: mainABI,
+        functionName: 'checkOwn',
+        args: [address],
+        onSuccess(data) {
+            console.log("Success", data);
+        }
+    })
+
+    const verifyAccess = useContractWrite({
+        addressOrName: mainAddress,
+        contractInterface: mainABI,
+        functionName: 'verifyAccess',
+        args: [],
+        onSuccess(data) {
+            console.log("Success", data);
+        }
+    })
+
+    const verifySignature = useContractWrite({
+        addressOrName: mainAddress,
+        contractInterface: mainABI,
+        functionName: 'verifySignature',
+        args: [],
+        onSuccess(data) {
+            console.log("Success", data);
+        }
+    })
+
+    const auth = () => {
+
+    }
+
 
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
@@ -26,8 +64,8 @@ const Card = (props) => {
                 <span className="text-[#FAAA39]">Lorem ipsum sae tom axen ziaq</span>
             </div>
             <div className="px-6 pt-4 pb-7 py-5">
-                <div className="flex space-x-5">
-                    <button className="bg-[#FAAA39] rounded-md py-2 px-3" disabled={props.status} onClick={() => {mint.write();}}>Subscribe</button>
+                <div className="flex space-x-10">
+                    <button className="bg-[#FAAA39] rounded-md py-2 px-3" disabled={props.status} onClick={() => { mint.write(); }}>Subscribe</button>
                     <button className="bg-[#FAAA39] rounded-md py-2 px-3" disabled={props.status}>Access</button>
                 </div>
             </div>
