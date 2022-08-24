@@ -23,8 +23,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 
 ## Demo
-Walkthrough: <br/>
-Website: <br/>
+Website: https://onlyauth-psi.vercel.app/ <br/>
 
 ## Team
 
