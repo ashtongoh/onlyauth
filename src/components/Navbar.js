@@ -49,7 +49,7 @@ const NavbarContainer = () => {
   return (
     <>
       <Navbar className="border-b border-color-black mx-auto py-2 px-4 py-3" fullWidth={true} shadow={false}>
-        <div className="container mx-auto flex items-center text-blue-gray-900">
+        <div className="container mx-auto flex items-center text-[#1E0536]">
           <Typography
             as="a"
             href="/"
@@ -58,7 +58,7 @@ const NavbarContainer = () => {
           >
             <span>BlockChamp</span>
           </Typography>
-          <div className="flex space-x-6">
+          <div className="flex space-x-6 text-[#1E0536]">
             <a href="/claim">
               Claim
             </a>
@@ -67,11 +67,12 @@ const NavbarContainer = () => {
             </a>
             <ThemeSwitcher />
           </div>
-          <div className="flex items-center space-x-2 ml-auto">
+          <div className="flex items-center space-x-2 ml-auto text-[#1E0536]">
             {connectors.map((connector) => (
               <Button
                 key={connector.id}
                 onClick={() => connectedAddress ? handleDisconnect() : connect({connector})}
+                color="orange"
               >
                 {connector.name}
                 {" "}

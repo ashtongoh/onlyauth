@@ -16,21 +16,23 @@ import {MetaMaskConnector} from 'wagmi/connectors/metaMask'
 
 import NavbarContainer from '../src/components/Navbar'
 
-const {chains, provider, webSocketProvider} = configureChains(defaultChains, [
-  alchemyProvider({apiKey: 'CaDXn1g7zGJvM8WOLJeAMA8MM_u1-CMV'}),
-  publicProvider()
-]);
-
-const client = createClient({
-  autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({chains}),
-  ],
-  provider,
-  webSocketProvider,
-});
-
 function MyApp({Component, pageProps}) {
+
+  const {chains, provider, webSocketProvider} = configureChains(defaultChains, [
+    alchemyProvider({apiKey: 'CaDXn1g7zGJvM8WOLJeAMA8MM_u1-CMV'}),
+    publicProvider(),
+  ]);
+
+  
+  const client = createClient({
+    autoConnect: true,
+    connectors: [
+      new MetaMaskConnector({chains}),
+    ],
+    provider,
+    webSocketProvider,
+  });
+
   React.useEffect(() => {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
